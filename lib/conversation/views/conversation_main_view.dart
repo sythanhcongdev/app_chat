@@ -1,16 +1,66 @@
-import '../conversation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ConversationRepository {
-  final ConversationRepository conversationFirebaseProvider;
+import '../../registration/registration.dart';
 
-  ConversationRepository({
-    required this.conversationFirebaseProvider,
-  });
+class ConversationMainView extends StatelessWidget {
+  final AppUser loginUser;
+  final AppUser receiver;
+  final String conversationId;
 
-  Future<Conversation?> getConversation({
-    required String senderUID,
-    required String receiverUID,
-  }) async {
-    final conversationMap = await this.
+  const ConversationMainView({
+    Key? key,
+    required this.conversationId,
+    required this.loginUser,
+    required this.receiver,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const heightOfContainer = 50;
+    return ListView(
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height -
+              AppBar().preferredSize.height -
+              heightOfContainer -
+              20,
+           child: BlocProvider(
+            create: (context) => MessageReceiverBloc(
+              messageRepository: MessageRepository(
+                messageFirebaseProvider: MessageFirebaseProvider(
+                  firestore: FirebaseFirestore.instance,
+                ),
+              ),
+            )..add(MessageRequested(conversationId: conversationId)),
+            child: ConversationMessageView(
+              receiver: receiver,
+              loginUser: loginUser,
+            ),
+          ),
+        ),
+        Container(
+          height: heightOfContainer.toDouble(),
+          padding: const EdgeInsets.all(5),
+          child: Center(
+            child: BlocProvider(
+              create: (context) => MessageSenderBloc(
+                MessageRepository(
+                  messageFirebaseProvider: MessageFirebaseProvider(
+                    firestore: FirebaseFirestore.instance,
+                  ),
+                ),
+              ),
+              child: ConversationSenderView(
+                conversationId: conversationId,
+                senderUID: loginUser.uid,
+                receiverUID: receiver.uid,
+              ),
+            ),
+          ),
+        )
+      ],
+    );
   }
 }
