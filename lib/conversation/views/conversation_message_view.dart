@@ -5,6 +5,8 @@ import 'package:app_chat/conversation/data/models/message.dart';
 // import 'package:app_chat/message/bloc/message_receiver_bloc.dart';
 import 'package:app_chat/registration/registration.dart';
 
+import '../../message/message.dart';
+
 class ConversationMessageView extends StatelessWidget {
   final AppUser loginUser;
   final AppUser receiver;
@@ -26,7 +28,7 @@ class ConversationMessageView extends StatelessWidget {
             return Text('Unable to fetch Message ${state.message}');
           } else if (state is MessageLoadSuccess) {
             return _MessageListBuilder(
-              message: state.message,
+              messages: state.messages,
               loginUID: loginUser.uid,
             );
           }

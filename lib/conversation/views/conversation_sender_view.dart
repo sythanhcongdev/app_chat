@@ -53,7 +53,7 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
         Expanded(
             child: BlocConsumer<MessageSenderBloc, MessageSenderState>(
           listener: (context, state) {
-            if (state is MessSentSuccess) {
+            if (state is MessageSentSuccess) {
               setState(messageTextController.clear);
             }
           },

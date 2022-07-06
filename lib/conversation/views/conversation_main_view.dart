@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../message/message.dart';
 import '../../registration/registration.dart';
+import '../conversation.dart';
 
 class ConversationMainView extends StatelessWidget {
   final AppUser loginUser;
@@ -30,7 +32,7 @@ class ConversationMainView extends StatelessWidget {
             create: (context) => MessageReceiverBloc(
               messageRepository: MessageRepository(
                 messageFirebaseProvider: MessageFirebaseProvider(
-                  firestore: FirebaseFirestore.instance,
+                  fireStore: FirebaseFirestore.instance,
                 ),
               ),
             )..add(MessageRequested(conversationId: conversationId)),
@@ -48,7 +50,7 @@ class ConversationMainView extends StatelessWidget {
               create: (context) => MessageSenderBloc(
                 MessageRepository(
                   messageFirebaseProvider: MessageFirebaseProvider(
-                    firestore: FirebaseFirestore.instance,
+                    fireStore: FirebaseFirestore.instance,
                   ),
                 ),
               ),
