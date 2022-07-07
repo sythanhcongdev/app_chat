@@ -56,10 +56,10 @@ class _MessageListBuilder extends StatelessWidget {
             itemCount: messages.length,
             reverse: true,
             itemBuilder: (BuildContext context, int index) {
-              final mesage = messages.elementAt(index);
+              final message = messages.elementAt(index);
               return _MessageBody(
-                isMine: mesage?.senderUID == loginUID,
-                message: mesage,
+                isMine: message?.senderUID == loginUID,
+                message: message,
               );
             },
           );

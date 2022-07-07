@@ -12,7 +12,7 @@ part 'contact_state.dart';
 class ContactBloc extends Bloc<ContactEvent, ContactState> {
   final ContactRepository contactRepository;
   ContactBloc(this.contactRepository) : super(ContactInitial()) {
-    on<ContactEvent>((event, emit) {});
+    on<ContactListRequested>(_onContactListRequested);
   }
 
   FutureOr<void> _onContactListRequested(

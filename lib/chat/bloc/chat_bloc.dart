@@ -1,0 +1,32 @@
+import 'dart:async';
+import 'dart:developer';
+
+import 'package:app_chat/chat/data/repository/chat_repository.dart';
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../conversation/conversation.dart';
+
+part 'chat_event.dart';
+part 'chat_state.dart';
+
+class ChatBloc extends Bloc<ChatEvent, ChatState> {
+  final ChatRepository chatRepository;
+  ChatBloc({required this.chatRepository}) : super(ChatInitial()) {
+    on<ChatEvent>((event, emit) {});
+  }
+
+  FutureOr<void> _onChatRequestedToState(
+    ChatRequested event,
+    Emitter<ChatState> emit,
+  ) async {
+    try {
+      emit(ChatLoadInProgress());
+      final chats = await chatRepository.getChats(loginUID: event.loginUID);
+      emit(ChatLoadSuccess(chats: chats));
+    } on Exception catch (e, trace) {
+      log('Issue occurred while loading chats $e $trace ');
+      emit(const ChatLoadFailure(message: 'unable to load chats'));
+    }
+  }
+}

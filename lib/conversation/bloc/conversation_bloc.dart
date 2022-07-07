@@ -15,7 +15,8 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   ConversationBloc({
     required this.conversationRepository,
   }) : super(ConversationInitial()) {
-    on<ConversationEvent>((event, emit) {});
+    on<ConversationDetailsRequested>(_onConversationDetailRequested);
+    on<ConversationCreated>(_onConversationCreated);
   }
 
   FutureOr<void> _onConversationDetailRequested(
