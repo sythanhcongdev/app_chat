@@ -7,13 +7,16 @@ abstract class MessageSenderState extends Equatable {
   List<Object> get props => [];
 }
 
-class MessageSenderInitial extends MessageSenderState {}
+
+class MessageInitial extends MessageSenderState {}
 
 class MessageSentSuccess extends MessageSenderState {}
 
 class MessageSentFailure extends MessageSenderState {
   final String message;
-  const MessageSentFailure({required this.message});
+  const MessageSentFailure({
+    required this.message,
+  });
 }
 
 class MessageSentInProgress extends MessageSenderState {}

@@ -13,9 +13,9 @@ class ConversationMainView extends StatelessWidget {
 
   const ConversationMainView({
     Key? key,
-    required this.conversationId,
     required this.loginUser,
     required this.receiver,
+    required this.conversationId,
   }) : super(key: key);
 
   @override
@@ -28,7 +28,7 @@ class ConversationMainView extends StatelessWidget {
               AppBar().preferredSize.height -
               heightOfContainer -
               20,
-           child: BlocProvider(
+          child: BlocProvider(
             create: (context) => MessageReceiverBloc(
               messageRepository: MessageRepository(
                 messageFirebaseProvider: MessageFirebaseProvider(

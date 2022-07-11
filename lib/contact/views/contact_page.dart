@@ -7,6 +7,7 @@ import 'package:app_chat/contact/data/provider/contact_firebase_provider.dart';
 import 'package:app_chat/conversation/conversation.dart';
 import '../../registration/registration.dart';
 
+
 class ContactPage extends StatelessWidget {
   final AppUser authenticatedUser;
   const ContactPage({
@@ -23,7 +24,9 @@ class ContactPage extends StatelessWidget {
               ContactFirebaseProvider(fireStore: FirebaseFirestore.instance),
         ),
       )..add(ContactListRequested(loginUID: authenticatedUser.uid)),
-      child: ContactView(loginUser: authenticatedUser),
+      child: ContactView(
+        loginUser: authenticatedUser,
+      ),
     );
   }
 }
@@ -43,7 +46,7 @@ class ContactView extends StatelessWidget {
           if (state is ContactLoadInProgress) {
             return const CircularProgressIndicator();
           } else if (state is ContactLoadFailure) {
-            return const Text('Unable to Load contacts');
+            return const Text('Unable to load contacts');
           } else if (state is ContactLoadSuccess) {
             return _contactListView(contacts: state.contacts);
           }
@@ -65,17 +68,19 @@ class ContactView extends StatelessWidget {
           title: Text(contact.displayName),
           subtitle: Text(contact.email),
           trailing: IconButton(
-              icon: const Icon(Icons.arrow_forward_ios_rounded),
-              onPressed: () {
-                Navigator.push<MaterialPageRoute>(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ConversationPage(
-                        receiver: contact,
-                        sender: loginUser,
-                      ),
-                    ));
-              }),
+            icon: const Icon(Icons.arrow_forward_ios_rounded),
+            onPressed: () {
+              Navigator.push<MaterialPageRoute>(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ConversationPage(
+                    receiver: contact,
+                    sender: loginUser,
+                  ),
+                ),
+              );
+            },
+          ),
         );
       },
     );

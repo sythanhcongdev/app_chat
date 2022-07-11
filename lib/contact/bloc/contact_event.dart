@@ -9,6 +9,7 @@ abstract class ContactEvent extends Equatable {
 
 class ContactListRequested extends ContactEvent {
   final String loginUID;
-
-  const ContactListRequested({required this.loginUID}); 
+  const ContactListRequested({
+    required this.loginUID,
+  });
 }

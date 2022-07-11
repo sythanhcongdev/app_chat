@@ -11,8 +11,8 @@ class ConversationSenderView extends StatefulWidget {
   const ConversationSenderView({
     Key? key,
     this.conversationId,
-    required this.receiverUID,
     required this.senderUID,
+    required this.receiverUID,
   }) : super(key: key);
 
   @override
@@ -20,18 +20,18 @@ class ConversationSenderView extends StatefulWidget {
 }
 
 class _ConversationSenderViewState extends State<ConversationSenderView> {
-  late final TextEditingController messageTextController;
+  late final TextEditingController messageTextContorller;
   late String message;
 
   @override
   void initState() {
     super.initState();
-    messageTextController = TextEditingController();
+    messageTextContorller = TextEditingController();
   }
 
   @override
   void dispose() {
-    messageTextController.dispose();
+    messageTextContorller.dispose();
     super.dispose();
   }
 
@@ -42,7 +42,7 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
         Expanded(
           flex: 9,
           child: TextField(
-            controller: messageTextController,
+            controller: messageTextContorller,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -51,42 +51,41 @@ class _ConversationSenderViewState extends State<ConversationSenderView> {
           ),
         ),
         Expanded(
-            child: BlocConsumer<MessageSenderBloc, MessageSenderState>(
-          listener: (context, state) {
-            if (state is MessageSentSuccess) {
-              setState(messageTextController.clear);
-            }
-          },
-          builder: (context, state) {
-            if (state is MessageSentInProgress) {
-              return const Center(
-                child: CircularProgressIndicator(),
+          child: BlocConsumer<MessageSenderBloc, MessageSenderState>(
+            listener: (context, state) {
+              if (state is MessageSentSuccess) {
+                setState(messageTextContorller.clear);
+              }
+            },
+            builder: (context, state) {
+              if (state is MessageSentInProgress) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is MessageSentFailure) {
+                return const Icon(Icons.error);
+              }
+              return IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () {
+                  message = messageTextContorller.text.trim();
+                  if (message.isNotEmpty) {
+                    BlocProvider.of<MessageSenderBloc>(context).add(
+                      MessageSent(
+                        message: Message(
+                          content: message,
+                          conversationId: widget.conversationId ?? '',
+                          senderUID: widget.senderUID,
+                          receiverUID: widget.receiverUID,
+                          timeStamp:
+                              DateTime.now().millisecondsSinceEpoch.toString(),
+                        ),
+                      ),
+                    );
+                  }
+                },
               );
-            } else if (state is MessageSentFailure) {
-              return const Icon(
-                Icons.error,
-              );
-            }
-            return IconButton(
-              icon: const Icon(Icons.send),
-              onPressed: () {
-                message = messageTextController.text.trim();
-                if (message.isNotEmpty) {
-                  BlocProvider.of<MessageSenderBloc>(context).add(MessageSent(
-                    message: Message(
-                      content: message,
-                      conversationId: widget.conversationId ?? '',
-                      senderUID: widget.senderUID,
-                      receiverUID: widget.receiverUID,
-                      timeStamp:
-                          DateTime.now().microsecondsSinceEpoch.toString(),
-                    ),
-                  ));
-                }
-              },
-            );
-          },
-        )),
+            },
+          ),
+        ),
       ],
     );
   }

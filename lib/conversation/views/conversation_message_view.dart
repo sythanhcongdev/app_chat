@@ -44,14 +44,16 @@ class ConversationMessageView extends StatelessWidget {
 class _MessageListBuilder extends StatelessWidget {
   final String loginUID;
   final List<Message?> messages;
-  const _MessageListBuilder(
-      {Key? key, required this.loginUID, required this.messages})
-      : super(key: key);
+  const _MessageListBuilder({
+    Key? key,
+    required this.loginUID,
+    required this.messages,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return messages.isEmpty
-        ? const Text("Say Hi! No messages yet")
+        ? Text('Say Hi! No messages yet')
         : ListView.builder(
             itemCount: messages.length,
             reverse: true,
@@ -67,8 +69,9 @@ class _MessageListBuilder extends StatelessWidget {
 }
 
 class _MessageBody extends StatelessWidget {
-  final bool isMine;
+  final bool isMine; 
   final Message? message;
+
   const _MessageBody({
     Key? key,
     required this.isMine,
@@ -80,18 +83,21 @@ class _MessageBody extends StatelessWidget {
     return Align(
       alignment: isMine ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-          margin: const EdgeInsets.all(5),
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: isMine ? Colors.blueGrey : Colors.green,
-            borderRadius: BorderRadius.circular(10),
+        margin: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: isMine ? Colors.blueGrey : Colors.green,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+        child: Text(
+          message?.content ?? '',
+          style: const TextStyle(
+            color: Colors.white,
           ),
-          constraints:
-              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
-          child: Text(message?.content ?? '',
-              style: const TextStyle(
-                color: Colors.white,
-              ))),
+        ),
+      ),
     );
   }
 }

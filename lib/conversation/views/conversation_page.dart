@@ -27,7 +27,7 @@ class ConversationPage extends StatelessWidget {
           ),
         ),
       )..add(
-          ConversationDetailsRequested(
+          ConversationDetailRequested(
             loginUser: sender,
             receiver: receiver,
           ),
@@ -81,7 +81,7 @@ class ConversationView extends StatelessWidget {
               return const CircularProgressIndicator();
             } else if (state is ConversationLoadFailure ||
                 state is ConversationCreationFailure) {
-              return const Text('We are unable to load conversation. Please try again.');
+              return Text('We are unable to load conversation. Please try again.');
             }
             return Text('Undefined state ${state.runtimeType}');
           },

@@ -1,20 +1,20 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:app_chat/utilities/keys/conversation_keys.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ConversationFirebaseProvider {
   final FirebaseFirestore fireStore;
-
   ConversationFirebaseProvider({
     required this.fireStore,
   });
 
-  Future<Map<String, dynamic>?> getConversation({
+  Future<Map<String, dynamic>?> getConversationId({
     required String senderUID,
     required String receiverUID,
   }) async {
     final members = [senderUID, receiverUID];
+
     final conversationQuerySnap =
         await fireStore.collection(ConversationKeys.collectionName).where(
       ConversationKeys.members,
@@ -36,6 +36,7 @@ class ConversationFirebaseProvider {
     final conversationRef = await fireStore
         .collection(ConversationKeys.collectionName)
         .add(conversation);
+
     await conversationRef.update({ConversationKeys.id: conversationRef.id});
     return conversationRef.id;
   }

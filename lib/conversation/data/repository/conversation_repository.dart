@@ -11,14 +11,14 @@ class ConversationRepository {
     required String senderUID,
     required String receiverUID,
   }) async {
-    final conversationMap = await conversationFirebaseProvider.getConversation(
+    final convesationMap = await conversationFirebaseProvider.getConversationId(
       senderUID: senderUID,
       receiverUID: receiverUID,
     );
-    if (conversationMap == null) {
+    if (convesationMap == null) {
       return null;
     } else {
-      return Conversation.fromMap(conversationMap);
+      return Conversation.fromMap(convesationMap);
     }
   }
 

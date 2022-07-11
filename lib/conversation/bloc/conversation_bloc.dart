@@ -15,12 +15,12 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
   ConversationBloc({
     required this.conversationRepository,
   }) : super(ConversationInitial()) {
-    on<ConversationDetailsRequested>(_onConversationDetailRequested);
+    on<ConversationDetailRequested>(_onConversationDetailRequested);
     on<ConversationCreated>(_onConversationCreated);
   }
 
   FutureOr<void> _onConversationDetailRequested(
-    ConversationDetailsRequested event,
+    ConversationDetailRequested event,
     Emitter<ConversationState> emit,
   ) async {
     try {
@@ -44,7 +44,7 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
         );
       }
     } catch (e, stackTrace) {
-      log('Issue while fetching conversation detail ${e.toString()}');
+      log('Issue whiel fetching covnersation detail ${e.toString()}');
       log('Stack trace is ${stackTrace.toString()}');
       emit(
         const ConversationLoadFailure(message: 'Unable to load Conversation'),
@@ -57,13 +57,14 @@ class ConversationBloc extends Bloc<ConversationEvent, ConversationState> {
     Emitter<ConversationState> emit,
   ) async {
     try {
-      emit(ConversationLoadInProgress());
+      emit(ConversationCreationInProgress());
+
       final conversationId = await conversationRepository.createConversation(
         conversation: event.conversation,
       );
       emit(ConversationCreationSuccess(conversationId: conversationId));
     } catch (e) {
-      log('Issue occurred while creating conversation ${e.toString()}');
+      log('Issue occured while creating conversation ${e.toString()}');
       emit(
         ConversationCreationFailure(
           message: 'Unable to create new conversation ${e.toString()}',

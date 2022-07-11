@@ -16,13 +16,13 @@ class MessageFirebaseProvider {
   Stream<List<Map<String, dynamic>?>> getMessages({
     required String conversationId,
   }) {
-    final querySnapshotStream = fireStore
+    final querySnapShotStream = fireStore
         .collection(MessageKeys.collection)
         .where(MessageKeys.conversationId, isEqualTo: conversationId)
         .orderBy(MessageKeys.timeStamp, descending: true)
         .snapshots();
 
-    return querySnapshotStream.map(
+    return querySnapShotStream.map(
       (event) => event.docs.map((e) => e.data()).toList(),
     );
   }

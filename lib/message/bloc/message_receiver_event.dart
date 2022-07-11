@@ -9,10 +9,14 @@ abstract class MessageReceiverEvent extends Equatable {
 
 class MessageRequested extends MessageReceiverEvent {
   final String conversationId;
-  const MessageRequested({required this.conversationId});
+  const MessageRequested({
+    required this.conversationId,
+  });
 }
 
 class MessageReceived extends MessageReceiverEvent {
   final List<Message?> messages;
-  const MessageReceived({required this.messages});
+  const MessageReceived({
+    required this.messages,
+  });
 }

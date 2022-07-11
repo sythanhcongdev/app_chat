@@ -8,11 +8,11 @@ abstract class ChatEvent extends Equatable {
 }
 
 
-class ChatRequested extends ChatEvent{
+class ChatRequested extends ChatEvent {
   final String loginUID;
-
-  const ChatRequested({required this.loginUID});
-
+  const ChatRequested({
+    required this.loginUID,
+  });
   @override
   List<Object> get props => [loginUID];
 }

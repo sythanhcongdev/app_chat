@@ -45,12 +45,12 @@ class Conversation extends Equatable {
   factory Conversation.fromMap(Map<String, dynamic> map) {
     return Conversation(
       id: map[ConversationKeys.id]?.toString(),
-      creator: AppUser.fromMap(
-          map[ConversationKeys.creator] as Map<String, dynamic>),
+      creator:
+          AppUser.fromMap(map[ConversationKeys.creator] as Map<String, dynamic>),
       receiver: AppUser.fromMap(
-          map[ConversationKeys.receiver] as Map<String, dynamic>),
-      members:
-          List<String>.from(map[ConversationKeys.members] as List<dynamic>),
+        map[ConversationKeys.receiver] as Map<String, dynamic>,
+      ),
+      members: List<String>.from(map[ConversationKeys.members] as List<dynamic>),
     );
   }
 
@@ -61,7 +61,7 @@ class Conversation extends Equatable {
 
   @override
   String toString() {
-    return 'Conversation(id: $id, creator:$creator, receiver:$receiver, members: $members,)';
+    return 'Conversation(id: $id, creator: $creator, receiver: $receiver, members: $members)';
   }
 
   @override

@@ -11,24 +11,32 @@ class ConversationInitial extends ConversationState {}
 
 class ConversationLoadSuccess extends ConversationState {
   final Conversation conversation;
-  const ConversationLoadSuccess({required this.conversation});
+  const ConversationLoadSuccess({
+    required this.conversation,
+  });
 }
 
 class ConversationLoadFailure extends ConversationState {
   final String message;
-  const ConversationLoadFailure({required this.message});
+  const ConversationLoadFailure({
+    required this.message,
+  });
 }
 
 class ConversationLoadInProgress extends ConversationState {}
 
 class ConversationCreationSuccess extends ConversationState {
   final String conversationId;
-  const ConversationCreationSuccess({required this.conversationId});
+  const ConversationCreationSuccess({
+    required this.conversationId,
+  });
 }
 
 class ConversationCreationInProgress extends ConversationState {}
 
 class ConversationCreationFailure extends ConversationState {
   final String message;
-  const ConversationCreationFailure({required this.message});
+  const ConversationCreationFailure({
+    required this.message,
+  });
 }

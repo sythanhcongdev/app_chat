@@ -13,16 +13,19 @@ class ChatLoadInProgress extends ChatState {}
 
 class ChatLoadFailure extends ChatState {
   final String message;
-  const ChatLoadFailure({required this.message});
-
+  const ChatLoadFailure({
+    required this.message,
+  });
   @override
   List<Object> get props => [message];
 }
 
 class ChatLoadSuccess extends ChatState {
   final List<Conversation> chats;
-  const ChatLoadSuccess({required this.chats});
-
+  const ChatLoadSuccess({
+    required this.chats,
+  });
   @override
   List<Object> get props => [chats];
 }
+

@@ -5,10 +5,13 @@ import '../../../utilities/keys/conversation_keys.dart';
 class ChatFirebaseProvider {
   final FirebaseFirestore fireStore;
 
-  ChatFirebaseProvider({required this.fireStore});
+  ChatFirebaseProvider({
+    required this.fireStore,
+  });
 
-  Future<List<Map<String, dynamic>>> getChats(
-      {required String loginUID}) async {
+  Future<List<Map<String, dynamic>>> getChats({
+    required String loginUID,
+  }) async {
     final querySnap = await fireStore
         .collection(ConversationKeys.collectionName)
         .where(ConversationKeys.members, arrayContains: loginUID)

@@ -1,5 +1,4 @@
 part of 'message_sender_bloc.dart';
-
 abstract class MessageSenderEvent extends Equatable {
   const MessageSenderEvent();
 
@@ -9,6 +8,7 @@ abstract class MessageSenderEvent extends Equatable {
 
 class MessageSent extends MessageSenderEvent {
   final Message message;
-
-  const MessageSent({required this.message});
+  const MessageSent({
+    required this.message,
+  });
 }

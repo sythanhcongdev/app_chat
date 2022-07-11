@@ -7,15 +7,14 @@ abstract class MessageReceiverState extends Equatable {
   List<Object> get props => [];
 }
 
-class MessageReceiverInitial extends MessageReceiverState {
-  
-}
+class MessageReceiverInitial extends MessageReceiverState {}
 
 class MessageLoadSuccess extends MessageReceiverState {
   final List<Message?> messages;
-
-  const MessageLoadSuccess({required this.messages});
-   @override
+  const MessageLoadSuccess({
+    required this.messages,
+  });
+  @override
   List<Object> get props => [messages];
 }
 
@@ -23,6 +22,7 @@ class MessageLoadInProgress extends MessageReceiverState {}
 
 class MessageLoadFailure extends MessageReceiverState {
   final String message;
-
-  const MessageLoadFailure({required this.message});
+  const MessageLoadFailure({
+    required this.message,
+  });
 }

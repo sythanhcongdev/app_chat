@@ -56,9 +56,15 @@ class Message extends Equatable {
   }
 
   String toJson() => json.encode(toMap());
-  
+
   factory Message.fromJson(String source) =>
       Message.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  @override
+  String toString() {
+    // ignore: lines_longer_than_80_chars
+    return 'Message(conversationId: $conversationId, senderUID: $senderUID, receiverUID: $receiverUID, content: $content, timeStamp: $timeStamp)';
+  }
 
   @override
   List<Object> get props {

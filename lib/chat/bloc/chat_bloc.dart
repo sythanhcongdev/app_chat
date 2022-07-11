@@ -12,8 +12,10 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository chatRepository;
-  ChatBloc({required this.chatRepository}) : super(ChatInitial()) {
-    on<ChatEvent>((event, emit) {});
+  ChatBloc({
+    required this.chatRepository,
+  }) : super(ChatInitial()) {
+    on<ChatRequested>(_onChatRequestedToState);
   }
 
   FutureOr<void> _onChatRequestedToState(
@@ -25,7 +27,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final chats = await chatRepository.getChats(loginUID: event.loginUID);
       emit(ChatLoadSuccess(chats: chats));
     } on Exception catch (e, trace) {
-      log('Issue occurred while loading chats $e $trace ');
+      log('Issue occrued while loading chats $e $trace ');
       emit(const ChatLoadFailure(message: 'unable to load chats'));
     }
   }

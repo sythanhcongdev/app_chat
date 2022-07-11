@@ -8,6 +8,7 @@ class ContactRepository {
   ContactRepository({
     required this.contactFirebaseProvider,
   });
+
   Future<List<AppUser>> getContacts({required String loginUID}) async {
     final listUserMaps = await contactFirebaseProvider.getContacts(
       loginUID: loginUID,

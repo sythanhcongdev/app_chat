@@ -7,18 +7,21 @@ abstract class ContactState extends Equatable {
   List<Object> get props => [];
 }
 
+
 class ContactInitial extends ContactState {}
 
 class ContactLoadInProgress extends ContactState {}
 
 class ContactLoadFailure extends ContactState {
   final String message;
-
-  const ContactLoadFailure({required this.message});
+  const ContactLoadFailure({
+    required this.message,
+  });
 }
 
 class ContactLoadSuccess extends ContactState {
   final List<AppUser> contacts;
-
-  const ContactLoadSuccess({required this.contacts});
+  const ContactLoadSuccess({
+    required this.contacts,
+  });
 }

@@ -10,10 +10,11 @@ part 'registration_state.dart';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   final RegistrationRepository registrationRepository;
-RegistrationBloc({required this.registrationRepository}) : super(RegistrationInitial()) {
-     on<RegistrationDetailRequested>(_onRegistrationDetailRequestedToState);
+  RegistrationBloc({required this.registrationRepository})
+      : super(RegistrationInitial()) {
+    on<RegistrationDetailRequested>(_onRegistrationDetailRequestedToState);
     on<RegistrationDetailUpdated>(_onRegistrationUpdatedToState);
-   }
+  }
 
   FutureOr<void> _onRegistrationDetailRequestedToState(
     RegistrationDetailRequested event,

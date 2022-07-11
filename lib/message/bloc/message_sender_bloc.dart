@@ -12,7 +12,12 @@ part 'message_sender_state.dart';
 
 class MessageSenderBloc extends Bloc<MessageSenderEvent, MessageSenderState> {
   final MessageRepository messageRepository;
-  MessageSenderBloc(this.messageRepository) : super(MessageSenderInitial()) {}
+
+  MessageSenderBloc(
+    this.messageRepository,
+  ) : super(MessageInitial()) {
+    on<MessageSent>(_onMessageSentToState);
+  }
 
   FutureOr<void> _onMessageSentToState(
     MessageSent event,
