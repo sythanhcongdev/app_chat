@@ -1,0 +1,10 @@
+export 'package:app_chat/widgets/app/app.dart';
+export 'package:app_chat/widgets/chat/chat_page.dart';
+export 'package:app_chat/widgets/contact/contact_page.dart';
+export 'package:app_chat/widgets/conversation/conversation_main_view.dart';
+export 'package:app_chat/widgets/conversation/conversation_message_view.dart';
+export 'package:app_chat/widgets/conversation/conversation_page.dart';
+export 'package:app_chat/widgets/conversation/conversation_sender_view.dart';
+export 'package:app_chat/widgets/home/home_page.dart';
+export 'package:app_chat/widgets/login/login_page.dart';
+export 'package:app_chat/widgets/registration/registration_page.dart';
